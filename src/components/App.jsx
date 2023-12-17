@@ -7,28 +7,22 @@ import { refreshUser } from 'redux/auth/operations';
 import { Routes, Route } from 'react-router-dom';
 import { useAuth } from 'hooks';
 import { PrivateRoute } from './PrivateRoute';
-import { RestrictedRoute } from './RestrictedRoute';
 import SharedLayout from './SharedLayout';
 import Loader from 'components/Loader';
 import { resetError } from 'redux/auth/authSlice';
 import { toastError } from 'components/Helpers';
 
 const Phonebook = lazy(() => import('pages/Phonebook'));
-const Login = lazy(() => import('pages/Login'));
-const Register = lazy(() => import('pages/Register'));
-const Verify = lazy(() => import('pages/Verify'));
-const ResendConfirmEmail = lazy(() => import('pages/ResendConfirmEmail'));
+const Main = lazy(() => import('pages/Main'));
 const ChangeSettings = lazy(() => import('pages/ChangeSettings'));
-const RepairPassword = lazy(() => import('pages/RepairPassword'));
 const UnknownPage = lazy(() => import('pages/UnknownPage'));
 
 function App() {
 	const dispatch = useDispatch();
-	const { isRefreshing, errorUser } = useAuth();
-
+	const { isRefreshing, errorUser, user } = useAuth();
 	useEffect(() => {
-		dispatch(refreshUser());
-	}, [dispatch]);
+		if (user) dispatch(refreshUser({ user }));
+	}, [dispatch, user]);
 
 	useEffect(() => {
 		if (errorUser !== null && errorUser !== 'Unable to fetch user') toastError(`${errorUser}`);
@@ -43,51 +37,17 @@ function App() {
 				<Route path='/' element={<SharedLayout />}>
 					<Route
 						path='phonebook'
-						element={<PrivateRoute redirectTo='/login' component={<Phonebook />} />}
+						element={<PrivateRoute redirectTo='/main' component={<Phonebook />} />}
 					/>
 					<Route
 						path='settings'
-						element={
-							<PrivateRoute redirectTo='/login' component={<ChangeSettings />} />
-						}
+						element={<PrivateRoute redirectTo='/main' component={<ChangeSettings />} />}
 					/>
-					<Route index element={<Login />} />
-					<Route
-						path='register'
-						element={
-							<RestrictedRoute redirectTo='/phonebook' component={<Register />} />
-						}
-					/>
-					<Route
-						path='login'
-						element={<RestrictedRoute redirectTo='/phonebook' component={<Login />} />}
-					/>
-					<Route
-						path='verify'
-						element={<RestrictedRoute redirectTo='/phonebook' component={<Verify />} />}
-					/>
-					<Route
-						path='resend'
-						element={
-							<RestrictedRoute
-								redirectTo='/phonebook'
-								component={<ResendConfirmEmail />}
-							/>
-						}
-					/>
-					<Route
-						path='repair/:id'
-						element={
-							<RestrictedRoute
-								redirectTo='/phonebook'
-								component={<RepairPassword />}
-							/>
-						}
-					/>
+					<Route index element={<Main />} />
+					<Route path='main' element={<Main />} />
 					<Route path='*' element={<UnknownPage />} />
 				</Route>
 			</Routes>
-
 			<Toaster
 				position='top-right'
 				reverseOrder={false}

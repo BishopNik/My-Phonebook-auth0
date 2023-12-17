@@ -39,7 +39,7 @@ function Contact({ contact }) {
 
 	const handleDeleteContact = e => {
 		animationButton(e);
-		dispatch(fetchDelContact(_id));
+		dispatch(fetchDelContact({ id: _id }));
 		toastInfo(`Contact deleted.`);
 		if (modalIsOpen) closeModalConfirmwindow();
 	};

@@ -21,10 +21,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<BrowserRouter basename='/My-Phonebook'>
+				<BrowserRouter basename='/'>
 					<Auth0Provider
 						domain='bishop.eu.auth0.com'
-						clientId='nKnGPNLE0ODtwFMZmV4Jhza2Xp6Rtjmx'
+						clientId='hN3retPwq13N4Bqzwh2V75dQwHUTskYR'
 						authorizationParams={{
 							redirect_uri: window.location.origin,
 						}}

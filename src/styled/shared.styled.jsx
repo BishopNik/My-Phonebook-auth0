@@ -201,3 +201,10 @@ export const LinkHome = styled(Link)`
 	display: flex;
 	justify-content: center;
 `;
+
+export const ImgBox = styled(Link)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 60px;
+`;

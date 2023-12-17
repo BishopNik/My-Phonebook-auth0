@@ -112,7 +112,7 @@ const ModalWindow = ({ modalIsOpen, closeModal, deleteContact, contact }) => {
 				const status = checkContact(contacts, name, email, phone, _id);
 				if (!status) {
 					setEditEnable(false);
-					cancelPutContact.current = dispatch(fetchPutContact(contact));
+					cancelPutContact.current = dispatch(fetchPutContact({ contact }));
 					setCancelEditContact(true);
 				} else toastError(`Please change contacts.`);
 			})

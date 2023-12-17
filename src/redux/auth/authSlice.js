@@ -1,29 +1,14 @@
 /** @format */
 
 import { createSlice } from '@reduxjs/toolkit';
-import {
-	register,
-	logIn,
-	logOut,
-	refreshUser,
-	resendEmail,
-	changeAvatar,
-	changeName,
-	changePassword,
-	deleteUser,
-	repairPassword,
-} from './operations';
+import { logIn, logOut, changeAvatar, changeName, changePassword, deleteUser } from './operations';
 
 const initialState = {
-	user: { id: null, name: null, email: null, avatarURL: null },
+	user: null,
 	token: null,
 	isLoggedIn: false,
 	isLogging: false,
 	isRefreshing: false,
-	isRegistering: false,
-	isRegistered: false,
-	statusResend: false,
-	isResend: false,
 	error: null,
 };
 
@@ -37,20 +22,6 @@ const authSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder
-			.addCase(register.pending, state => {
-				state.error = null;
-				state.isRegistering = true;
-				state.isRegistered = false;
-			})
-			.addCase(register.fulfilled, (state, { payload }) => {
-				state.user = payload.user;
-				state.isRegistering = false;
-				state.isRegistered = true;
-			})
-			.addCase(register.rejected, (state, { payload }) => {
-				state.isRegistering = false;
-				if (payload) state.error = 'Error create user... Please change name or email.';
-			})
 			.addCase(logIn.pending, state => {
 				state.error = null;
 				state.isLogging = true;
@@ -69,35 +40,12 @@ const authSlice = createSlice({
 				state.error = null;
 			})
 			.addCase(logOut.fulfilled, state => {
-				state.user = { name: null, email: null };
+				state.user = null;
 				state.token = null;
 				state.isLoggedIn = false;
 			})
 			.addCase(logOut.rejected, state => {
 				state.error = 'Logout error...';
-			})
-			.addCase(refreshUser.pending, state => {
-				state.isRefreshing = true;
-			})
-			.addCase(refreshUser.fulfilled, (state, { payload }) => {
-				state.user = payload;
-				state.isLoggedIn = true;
-				state.isRefreshing = false;
-			})
-			.addCase(refreshUser.rejected, (state, { payload }) => {
-				state.isRefreshing = false;
-				state.error = payload;
-			})
-			.addCase(resendEmail.pending, state => {
-				state.statusResend = true;
-			})
-			.addCase(resendEmail.fulfilled, state => {
-				state.isResend = true;
-				state.statusResend = false;
-			})
-			.addCase(resendEmail.rejected, (state, { payload }) => {
-				state.statusResend = false;
-				state.error = payload;
 			})
 			.addCase(changeAvatar.pending, state => {
 				state.statusResend = true;
@@ -147,20 +95,6 @@ const authSlice = createSlice({
 			})
 			.addCase(deleteUser.rejected, (state, { payload }) => {
 				state.error = 'Delete user error...';
-			})
-			.addCase(repairPassword.pending, state => {
-				state.error = null;
-				state.isRegistering = true;
-				state.isRegistered = false;
-			})
-			.addCase(repairPassword.fulfilled, (state, { payload }) => {
-				state.user = payload.user;
-				state.isRegistering = false;
-				state.isRegistered = true;
-			})
-			.addCase(repairPassword.rejected, (state, { payload }) => {
-				state.isRegistering = false;
-				if (payload) state.error = 'Error change password... Please repead.';
 			});
 	},
 });

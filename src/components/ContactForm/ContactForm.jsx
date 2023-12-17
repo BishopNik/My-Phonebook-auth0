@@ -16,7 +16,7 @@ import {
 	ButtonDiv,
 } from './ContactForm.styled.jsx';
 
-function ContactForm({ onSubmitForm }) {
+function ContactForm() {
 	const dispatch = useDispatch();
 	const contacts = useSelector(contactsState);
 	const statusLoading = useSelector(statusLoadingState);
@@ -30,7 +30,8 @@ function ContactForm({ onSubmitForm }) {
 	const handleAddContact = ({ name, email, phone }) => {
 		const status = checkContact(contacts, name, email, phone);
 		if (!status) {
-			cancelAddContact.current = dispatch(fetchPostContact({ name, gender, email, phone }));
+			const contact = { name, gender, email, phone };
+			cancelAddContact.current = dispatch(fetchPostContact({ contact }));
 		} else toastError(`${name} is already in contacts.`);
 		return status;
 	};
