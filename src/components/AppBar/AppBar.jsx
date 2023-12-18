@@ -26,17 +26,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 export const AppBar = () => {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
-	const { user, isAuthenticated, loginWithRedirect, logout, auth0Context } = useAuth0();
+	const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
 	const toggle = () => setIsOpen(!isOpen);
 
 	useEffect(() => {
 		if (user) {
-			const { client_id } = auth0Context?.config;
-			user.clientId = client_id;
 			dispatch(logIn({ user }));
 		}
-	}, [auth0Context.config, dispatch, user]);
+	}, [dispatch, user]);
 
 	const logoutWithRedirect = () => {
 		logout({
@@ -104,9 +102,12 @@ export const AppBar = () => {
 										</DropdownItem>
 										<DropdownItem
 											tag={RouterNavLink}
-											to='/settings'
+											// to='/settings'
 											className='dropdown-profile'
 											style={{ fontSize: '18px' }}
+											onClick={() =>
+												alert('Please wait, under development...')
+											}
 										>
 											<FontAwesomeIcon icon={faUser} className='mr-3' />{' '}
 											Profile
