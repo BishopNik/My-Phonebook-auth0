@@ -3,13 +3,10 @@
 const path = require('path');
 
 module.exports = {
-	entry: './index.js',
+	entry: 'index.js',
 	output: {
 		filename: 'bundle.js',
 		path: path.resolve(__dirname, 'dist'),
-	},
-	resolve: {
-		fallback: { stream: require.resolve('stream-browserify') },
 	},
 	mode: 'development',
 	module: {
