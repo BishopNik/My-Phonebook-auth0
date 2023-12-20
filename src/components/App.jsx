@@ -1,6 +1,5 @@
 /** @format */
 
-import { Toaster } from 'react-hot-toast';
 import { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/auth/operations';
@@ -48,19 +47,6 @@ function App() {
 					<Route path='*' element={<UnknownPage />} />
 				</Route>
 			</Routes>
-
-			<Toaster
-				position='top-right'
-				reverseOrder={false}
-				gutter={8}
-				toastOptions={{
-					duration: 5000,
-					style: {
-						background: '#fdfbea',
-						color: '#000000',
-					},
-				}}
-			/>
 		</>
 	);
 }

@@ -39,7 +39,7 @@ export const AppBar = () => {
 	const logoutWithRedirect = () => {
 		logout({
 			logoutParams: {
-				returnTo: window.location.origin,
+				returnTo: `${window.location.origin}/My-Phonebook-auth0`,
 			},
 		});
 		logOutHandel();
