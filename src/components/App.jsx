@@ -43,11 +43,12 @@ function App() {
 						path='settings'
 						element={<PrivateRoute redirectTo='/main' component={<ChangeSettings />} />}
 					/>
-					<Route index element={<Main />} />
 					<Route path='main' element={<Main />} />
+					<Route index element={<Main />} />
 					<Route path='*' element={<UnknownPage />} />
 				</Route>
 			</Routes>
+
 			<Toaster
 				position='top-right'
 				reverseOrder={false}

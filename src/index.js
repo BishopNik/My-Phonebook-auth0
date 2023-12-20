@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<BrowserRouter basename='/'>
+				<BrowserRouter basename='/My-Phonebook-auth0'>
 					<Auth0Provider
 						domain='bishop.eu.auth0.com'
 						clientId='hN3retPwq13N4Bqzwh2V75dQwHUTskYR'
